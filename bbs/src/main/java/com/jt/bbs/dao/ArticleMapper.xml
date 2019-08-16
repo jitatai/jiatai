@@ -15,6 +15,10 @@
     <result column="readCnt" property="readcnt" jdbcType="INTEGER" />
     <result column="agreeCnt" property="agreecnt" jdbcType="INTEGER" />
     <result column="commCnt" property="commcnt" jdbcType="INTEGER" />
+    
+    <association property="category" column="categoryid" 
+     fetchType="lazy" select="com.jt.bbs.dao.CategoryMapper.selectByPrimaryKey">
+    </association>
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.jt.bbs.entity.Article" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />

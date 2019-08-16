@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Article implements Serializable {
+	private Category category;
+	
     private Integer id;
 
     private String author;
@@ -34,7 +36,16 @@ public class Article implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getId() {
+    
+    public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public Integer getId() {
         return id;
     }
 
