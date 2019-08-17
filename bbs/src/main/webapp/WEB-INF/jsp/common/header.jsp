@@ -17,7 +17,10 @@
             </ul>
           </li>
         </ul>
-        <a data-toggle="modal" href="login.html" data-target="#loginModal" class="login" rel="nofollow">Hi,请登录</a>&nbsp;&nbsp;<a href="javascript:;" class="register" rel="nofollow">我要注册</a>&nbsp;&nbsp;<a href="" rel="nofollow">找回密码</a> </div>
+      	  ${loginedUser == null ? '<a data-toggle="modal"  data-target="#loginModal" class="login" rel="nofollow">Hi 请登录</a>' : "欢迎".concat(loginedUser.name) }
+        
+        
+        &nbsp;&nbsp;<a href="javascript:;" class="register" rel="nofollow">我要注册</a>&nbsp;&nbsp;<a href="" rel="nofollow">找回密码</a> </div>
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-navbar" aria-expanded="false"> <span class="sr-only"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
         <h1 class="logo hvr-bounce-in"><a href="" title=""><img src="images/logo.png" alt=""></a></h1>
@@ -42,3 +45,17 @@
     </div>
   </nav>
 </header>
+
+<script>
+	function login(){
+		$.post("user/login",
+			{name:loginModalUserName.value,password:loginModalUserPwd.value},
+			function (result){
+				if(result.code == 1){
+					alert("登陆成功!")
+					$('#loginModal').modal("hide");
+				}
+			}
+		)
+	}
+</script>

@@ -30,4 +30,19 @@ public class ArticleService {
 		return articleMapper.selectByExampleWithBLOBs(example);
 		
 	}
+
+	public Article read(Integer id) {
+		Article article = articleMapper.selectByPrimaryKey(id);
+		article.setReadcnt(article.getReadcnt() == null ? 1 : article.getReadcnt() + 1);
+		articleMapper.updateByPrimaryKey(article);
+		return article;
+	}
+
+	public List<Article> recommend(Integer categoryid) {
+		ArticleExample example = new ArticleExample();
+		example.setOrderByClause("createTime desc");
+		example.createCriteria().andCategoryidEqualTo(categoryid);
+		PageHelper.startPage(1, 10);
+		return articleMapper.selectByExample(example);
+	}
 }

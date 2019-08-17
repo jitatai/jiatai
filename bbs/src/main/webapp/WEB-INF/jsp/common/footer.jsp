@@ -39,7 +39,7 @@
 <div class="modal fade user-select" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <form action="/Admin/Index/login" method="post">
+      <form action="#" method="post">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="loginModalLabel">登录</h4>
@@ -47,7 +47,7 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="loginModalUserNmae">用户名</label>
-            <input type="text" class="form-control" id="loginModalUserNmae" placeholder="请输入用户名" autofocus maxlength="15" autocomplete="off" required>
+            <input type="text" class="form-control" id="loginModalUserName" placeholder="请输入用户名" autofocus maxlength="15" autocomplete="off" required>
           </div>
           <div class="form-group">
             <label for="loginModalUserPwd">密码</label>
@@ -56,12 +56,13 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-          <button type="submit" class="btn btn-primary">登录</button>
+          <button  type="button" onclick="login()" class="btn btn-primary">登录</button>
         </div>
       </form>
     </div>
   </div>
 </div>
+
 <!--右键菜单列表-->
 <div id="rightClickMenu">
   <ul class="list-group rightClickMenuList">

@@ -11,12 +11,12 @@
 
 <c:forEach items="${latestArticleList }" var="article">
 	<article class="excerpt excerpt-1">
-		<a class="focus" href="article.html" title=""><img class="thumb"
+		<a class="focus" href="article?id=${article.id}" title=""><img class="thumb"
 			data-original="images/excerpt.jpg" src="images/excerpt.jpg" alt=""></a>
 		<header>
-			<a class="cat" href="program">${article.category.name }<i></i></a>
+			<a class="cat" href="catArticle?id=${article.categoryid }">${article.category.name }<i></i></a>
 			<h2>
-				<a href="article.html" title="">${article.title }</a>
+				<a href="article?id=${article.id}" title="">${article.title }</a>
 			</h2>
 		</header>
 		<p class="meta">
@@ -25,7 +25,7 @@
 			</time>
 			<span class="views"><i class="glyphicon glyphicon-eye-open"></i>
 				共${article.readcnt }人围观</span> <a class="comment"
-				href="article.html#comment"><i
+				href="article?id=${article.id}#comment"><i
 				class="glyphicon glyphicon-comment"></i> 0个不明物体</a>
 		</p>
 
