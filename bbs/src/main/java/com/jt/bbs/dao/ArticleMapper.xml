@@ -19,7 +19,16 @@
     <association property="category" column="categoryid" 
      fetchType="lazy" select="com.jt.bbs.dao.CategoryMapper.selectByPrimaryKey">
     </association>
+    
+    <collection property="commentList" column="id" fetchType="lazy"
+     select="findCommListByArticleId">
+    
+    </collection>
   </resultMap>
+  <select id="findCommListByArticleId" resultMap="com.jt.bbs.dao.CommentMapper.BaseResultMap">
+  	select * from comment where articleid = #{articleid}
+  </select>
+  
   <resultMap id="ResultMapWithBLOBs" type="com.jt.bbs.entity.Article" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>

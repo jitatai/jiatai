@@ -100,11 +100,11 @@ $("#gotop").click(function () {
  
 //图片延时加载
 $("img.thumb").lazyload({
-    placeholder: "/Home/images/occupying.png",
+    placeholder: "/images/occupying.png",
     effect: "fadeIn"
 });
 $(".single .content img").lazyload({
-    placeholder: "/Home/images/occupying.png",
+    placeholder: "/images/occupying.png",
     effect: "fadeIn"
 });
  
@@ -118,24 +118,42 @@ $('[data-toggle="tooltip"]').tooltip();
  
  
 //无限滚动反翻页
-jQuery.ias({
+var ias = jQuery.ias({
 	history: false,
 	container : '.content',
 	item: '.excerpt',
 	pagination: '.pagination',
-	next: '.next-page a',
-	trigger: '查看更多',
-	loader: '<div class="pagination-loading"><img src="/Home/images/loading.gif" /></div>',
-	triggerPageThreshold: 5,
-	onRenderComplete: function() {
+	next: '.next-page a'
+});
+var count = 1;
+ias.on('load', function(event) {
+//    alert(count);
+    event.ajaxOptions.data = { page: ++count };
+});
+ias.on('rendered', function() {
 		$('.excerpt .thumb').lazyload({
-			placeholder: '/Home/images/occupying.png',
+			placeholder: '/images/occupying.png',
 			threshold: 400
 		});
 		$('.excerpt img').attr('draggable','false');
 		$('.excerpt a').attr('draggable','false');
-	}
 });
+/**
+ *
+	trigger: '查看更多',
+	triggerPageThreshold: 5
+ */
+ias.extension(new IASTriggerExtension({
+    text: '加载更多项', // optionally
+    offset : 2
+}));
+
+/**
+ * 旧版的ias  loader: '<div class="pagination-loading"><img src="/images/loading.gif" /></div>'
+ */
+ias.extension(new IASSpinnerExtension({
+    src: '/images/loading.gif' // optionally
+}));
  
 //鼠标滚动超出侧边栏高度绝对定位
 $(window).scroll(function () {
@@ -221,16 +239,30 @@ $(function(){
 		promptText.text('正在提交...');
 		$.ajax({   
 			type:"POST",
-			url:"test.php?id=" + articleid,
-			//url:"/Article/comment/id/" + articleid,   
-			data:"commentContent=" + replace_em(commentContent.val()),   
+			url:"comment?articleid=" + articleid,
+			data:"content=" + replace_em(commentContent.val()),   
 			cache:false, //不缓存此页面  
 			success:function(data){
-				alert(data);
+				
+				if(data.code == -1){
+					var msgs = "";
+					console.log(data);
+					for(var i in data.data){
+						msgs += data.data[i].defaultMessage;
+					}
+					alert(msgs)
+				}else{
+					alert(data.msg);
+					
+					if(data.code == 1){
+						window.location.href = "article?id=" + articleid;
+						return false;
+					}
+				}
+				
 				promptText.text('评论成功!');
 			    commentContent.val(null);
 				$(".commentlist").fadeIn(300);
-				/*$(".commentlist").append();*/
 				commentButton.attr('disabled',false);
 				commentButton.removeClass('disabled');
 			}
@@ -244,7 +276,7 @@ $(function(){
 function replace_em(str){
 	str = str.replace(/\</g,'&lt;');
 	str = str.replace(/\>/g,'&gt;');
-	str = str.replace(/\[em_([0-9]*)\]/g,'<img src="/Home/images/arclist/$1.gif" border="0" />');
+	str = str.replace(/\[em_([0-9]*)\]/g,'<img src="/images/arclist/$1.gif" border="0" />');
 	return str;
 }
 

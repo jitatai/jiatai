@@ -3,11 +3,17 @@ package com.jt.bbs.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
 public class Comment implements Serializable {
     private Integer id;
 
     private Integer articleid;
 
+    @NotEmpty(message="请输入内容")
+    @Length(min=2,max=1000,message="评论内容的字数为2-1000")
     private String content;
 
     private Integer createby;

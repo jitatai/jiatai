@@ -2,6 +2,7 @@ package com.jt.bbs.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class Article implements Serializable {
 	private Category category;
@@ -33,9 +34,17 @@ public class Article implements Serializable {
     private Integer commcnt;
 
     private String content;
+    
+    private List<Comment> commentList;
 
     private static final long serialVersionUID = 1L;
 
+    public void setCommentList(List<Comment> commentList) {
+		this.commentList = commentList;
+	}
+    public List<Comment> getCommentList() {
+		return commentList;
+	}
     
     public Category getCategory() {
 		return category;

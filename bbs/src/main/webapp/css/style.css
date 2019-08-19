@@ -1141,11 +1141,12 @@ color:#FFF;
 	transform: rotate(360deg);
 }
 .comment-f {
-	position: absolute;
+	/* position: absolute; */
 	top: 15px;
 	right: 0;
 	font-size: 16px;
 	color: #ccc;
+	float: right;
 }
 .comment-avatar {
 	width: 36px;

@@ -1,10 +1,10 @@
 package com.jt.bbs.common;
 
-public class Result<T> {
+public class Result {
 
 	private int code;
 	private String msg;
-	private T data;
+	private Object data;
 	public int getCode() {
 		return code;
 	}
@@ -23,7 +23,7 @@ public class Result<T> {
 		super();
 		this.code = code;
 	}
-	public Result(int code, String msg, T data) {
+	public Result(int code, String msg, Object data) {
 		super();
 		this.code = code;
 		this.msg = msg;
@@ -32,10 +32,10 @@ public class Result<T> {
 	public void setMsg(String msg) {
 		this.msg = msg;
 	}
-	public T getData() {
+	public Object getData() {
 		return data;
 	}
-	public void setData(T data) {
+	public void setData(Object data) {
 		this.data = data;
 	}
 	

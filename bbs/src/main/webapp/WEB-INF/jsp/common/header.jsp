@@ -53,6 +53,7 @@
 			function (result){
 				if(result.code == 1){
 					alert("登陆成功!")
+					$(".login").html("欢迎"+result.data);
 					$('#loginModal').modal("hide");
 				}
 			}

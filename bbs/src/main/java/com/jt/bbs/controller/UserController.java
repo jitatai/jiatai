@@ -18,15 +18,15 @@ public class UserController {
 	private UserService userService;
 	
 	@RequestMapping("login")
-	public Result<User> login(String name,String password,Model model){
+	public Result login(String name,String password,Model model){
 		User user = null;
 		try {
 			user = userService.login(name, password);
 		} catch (Exception e) {
-			return new Result<User>(0,e.getMessage());
+			return new Result(0,e.getMessage());
 		}
 		model.addAttribute("loginedUser", user);
-		return new Result<User>(1, "OK");
+		return new Result(1, "OK",user.getName());
 	}
 
 }

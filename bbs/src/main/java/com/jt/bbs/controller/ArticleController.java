@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.github.pagehelper.PageHelper;
 import com.jt.bbs.entity.Article;
 import com.jt.bbs.entity.Category;
 import com.jt.bbs.service.ArticleService;
 import com.jt.bbs.service.CategoryService;
+import com.jt.bbs.service.CommentService;
 
 @Controller
 public class ArticleController {
@@ -23,7 +25,8 @@ public class ArticleController {
 	private ArticleService articleService;
 	@Resource
 	private CategoryService categoryService;
-	
+	@Resource
+	private CommentService commentService;
 	@ModelAttribute("categoryList")
 	public List<Category> initCatList(){
 		return categoryService.getAllCatList();
@@ -44,10 +47,13 @@ public class ArticleController {
 	}
 	
 	@RequestMapping("article")
-	public String article(Integer id,Model model){
+	public String article(@RequestParam(defaultValue="1")Integer page,
+			Integer id,Model model){
 		Article article = articleService.read(id);
 		List<Article> recoList = articleService.recommend(article.getCategoryid());
-		model.addAttribute(article);
+		PageHelper.startPage(page,5);
+		article.getCommentList();
+		model.addAttribute("article",article);
 		model.addAttribute("recoList",recoList);
 		return "article";
 	}
