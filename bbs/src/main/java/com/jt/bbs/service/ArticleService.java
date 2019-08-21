@@ -45,4 +45,8 @@ public class ArticleService {
 		PageHelper.startPage(1, 10);
 		return articleMapper.selectByExample(example);
 	}
+
+	public void save(Article article) {
+		articleMapper.insert(article);
+	}
 }

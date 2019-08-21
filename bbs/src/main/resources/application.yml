@@ -1,9 +1,18 @@
 spring:
+  resources:
+    staticLocations: 
+      - file:/d:/
+      - classpath:/static/
   datasource:
     username: root
     password: abc
     url: jdbc:mysql://localhost:3306/bbs
     driver-class-name: com.mysql.jdbc.Driver
+  http: 
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
   mail:
     host: smtp.qq.com
     username: 879798231@qq.com # 这里填写个人的qq邮箱
@@ -23,3 +32,5 @@ logging:
       jt: debug
 server:
   port: 80
+  tomcat:
+    uri-encoding: UTF-8
