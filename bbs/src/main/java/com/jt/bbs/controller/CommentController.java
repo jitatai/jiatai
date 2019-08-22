@@ -20,9 +20,6 @@ public class CommentController {
 
 	@RequestMapping("comment")
 	public Result comment(@Valid Comment comment, Errors errors,@SessionAttribute(name="loginedUser",required=false) User user) {
-		if(user == null){
-			return  new Result(0, "用户暂未登陆");
-		}
 		if (errors.hasErrors()) {
 			return  new Result(-1, "评论失败", errors.getAllErrors());	
 		}

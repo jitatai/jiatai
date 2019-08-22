@@ -1,4 +1,4 @@
-/*package com.jt.bbs.interceptor;
+package com.jt.bbs.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -7,29 +7,29 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.jt.bbs.common.Result;
+
 public class LoginInterceptor implements HandlerInterceptor {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-
 		
 		HttpSession session = request.getSession();
-		// 如果用户已登录也放行
-		if (session.getAttribute("user") != null) {
-			return true;
-		}
-		// 如果是评论页面
-		if (request.getRequestURI().indexOf("comment") >= 0) {
-			
-			
-			// 用户没有登录挑战到登录页面
-			request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
+		
+		if(session.getAttribute("loginedUser") == null){
+			if(request.getHeader("X-Requested-With") == null){
+				response.sendRedirect("index?login");
+			}else{
+				Gson gson = new Gson();
+				response.setContentType("application/json; charset=UTF-8");
+				response.getWriter().write(gson.toJson(new Result(0, "用户暂未登陆")));
+			}
 			return false;
 		}
-		
 		return true;
-
+		
 	}
 
 	@Override
@@ -45,4 +45,3 @@ public class LoginInterceptor implements HandlerInterceptor {
 	}
 
 }
-*/

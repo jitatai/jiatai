@@ -243,7 +243,7 @@ $(function(){
 			data:"content=" + replace_em(commentContent.val()),   
 			cache:false, //不缓存此页面  
 			success:function(data){
-				
+				console.log(data);
 				if(data.code == -1){
 					var msgs = "";
 					console.log(data);
